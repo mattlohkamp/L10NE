@@ -1,4 +1,4 @@
-#※L10NE
+# ※ L10NE ※
 
 *LION Engine - the flash content externalization and localization system.*
 
@@ -6,16 +6,18 @@
 
 ##Story Time
 
-'L10N' is a [numeronym](http://en.wikipedia.org/wiki/Numeronym) used as industry shorthand for "[localization](http://en.wikipedia.org/wiki/Language_localisation)" - essentially the practice of defining equivalent content blocks for different geographic locations, generally broken up by language, but sometimes also distinct cultures. For instance, even in the same basic language, different regions might prefer different forms of a particular word - or might identify more with a different image as evoking a particular emotion. 'L10N' looks a lot like 'LION,' and 'Engine' starts with an 'E,' therefore the name.
+'L10N' is a [numeronym](http://en.wikipedia.org/wiki/Numeronym) used as industry shorthand for "[localization](http://en.wikipedia.org/wiki/Language_localisation)" - essentially the practice of defining equivalent content blocks for different geographic locations, generally broken up by language, but sometimes also distinct cultures. For instance, even in the same basic language, different regions might prefer different forms of a particular word - or might identify more with a different image as evoking a particular emotion. In a non-language example, in colourblind-friendly mode, green and red text might be styled slightly differently, and instructions might be worded accordingly.
 
-Text marked for localization ('lionization') by the LionEngine is delineated from other content by the addition of the [japenese *kome* glyph](http://www.fileformat.info/info/unicode/char/203b/index.htm): **※**, a choice which is part whimsy, part practical; this symbol is fairly obscure and is unlikely to be used in modern typeset content, and looks kinda cool. (changing which glyph to look for or pattern to match to recognize lionizable content is an included piece of LIONE functionality.)
+Text marked for localization ('lionization') by LionEngine is delineated from other content by the addition of the [japenese *kome* glyph](http://www.fileformat.info/info/unicode/char/203b/index.htm): **※**, a choice which is part whimsy, part practical; this symbol is fairly obscure and is unlikely to be used in modern typeset content, and looks kinda cool. (changing which glyph to look for or pattern to match to recognize lionizable content is an included piece of LIONE functionality - note that **use of '※' symbol requires UTF-8 encoding**.)
+
+Finally, 'L10N' looks a lot like 'LION,' and 'Engine' starts with an 'E,' therefore the name.
 
 ##Dev Direction / timeline
 
-1.	basic documentation outline
-2.	lionize string
-3.	lionize xml
-4.	lionize textfield
+1.	~~basic documentation outline~~
+2.	lionize basic init
+3.	lionize String
+4.	lionize XML
 5.	lionize feature buff and init / dictionary switching
 6.	completed example / demo
 7.	completed documentation
