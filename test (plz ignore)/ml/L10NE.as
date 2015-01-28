@@ -9,13 +9,11 @@
 			//	model stuff
 
 		private static var dictURLs:Vector.<String>;
-		private static var dictIDs:Vector.<String>;
-		private static var dictXMLs:Vector.<XML>;
+		private static var dictXMLs:Array;
 		private static var $currentDict:String = new String();
 		public function get currentDict():String	{	return $currentDict;	}
 		public function set currentDict(_currentDict:String):void	{
-			var dictIndex:uint = dictIDs.indexOf(_currentDict);
-			$currentDict = (dictIndex) ? dictXMLs[dictIndex] : $currentDict;
+			$currentDict = (_currentDict in dictXMLs) ? dictXMLs[_currentDict] : $currentDict;
 		}
 		
 		private static var configURL:String;
@@ -36,14 +34,11 @@
 			var dictCount:uint = _configXML.dictionary.length();
 			dictURLs = new Vector.<String>(dictCount);
 			loadQueue = new Vector.<String>(dictCount);
-			dictIDs = new Vector.<String>(dictCount);
-			dictXMLs = new Vector.<XML>();
+			dictXMLs = new Array();
 			var i:uint = new uint();
 			for each(var dictURL:String in _configXML.dictionary){
 				dictURLs[i] = dictURL;
 				loadQueue[i] = dictURL;
-				var dictID:String = _configXML.dictionary.@id;
-				dictIDs[i] = dictID;
 				var xmlRequest:URLRequest = new URLRequest(dictURL);
 				var xmlURLLoader:URLLoader = new URLLoader(xmlRequest);
 				xmlURLLoader.addEventListener(Event.COMPLETE, function(xmlRequest:URLRequest, dictID:String):Function {
@@ -54,16 +49,14 @@
 							dictsLoaded();
 						}
 					}
-				}(xmlRequest, dictID));
+				}(xmlRequest, _configXML.dictionary[i].@id.toString()));
 				i++;
 			};
 		}
 		
 		private static function dictsLoaded():void	{
-			trace('all done!');
-			trace(dictIDs)
-			trace(dictURLs);
-			trace(dictXMLs);
 		}
+		
+			//	
 	}	
 }
