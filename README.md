@@ -15,14 +15,16 @@ Finally, 'L10N' looks a lot like 'LION,' and 'Engine' starts with an 'E,' theref
 ##Dev Direction / timeline
 
 1.	~~basic documentation outline~~
-2.	lionize basic init
-3.	lionize String
+2.	~~lionize basic init~~
+3.	~~lionize String~~
 4.	lionize XML
 5.	lionize feature buff and init / dictionary switching
-6.	completed example / demo
-7.	completed documentation
-8.	bug test / fix / stuff?
-9.	release!
+6.  add xml loader queue?
+7.  allow passing in complete xml, loaded from outside?
+8.  completed example / demo
+9.  completed documentation
+10.  bug test / fix / stuff?
+11.  release!
 
 ##Documentation
 

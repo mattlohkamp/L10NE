@@ -24,7 +24,7 @@
 			//	init + internals
 		
 		public static function init(_configURL:String, _onDictsLoaded:Function = null):void	{
-			onDictsLoaded = (_onDictsLoaded) ? _onDictsLoaded : onDictsLoaded;
+			onDictsLoaded = (_onDictsLoaded is Function) ? _onDictsLoaded : onDictsLoaded;
 			var configLoader:URLLoader = new URLLoader(new URLRequest(configURL = _configURL));
 			configLoader.addEventListener(Event.COMPLETE, function(e:Event):void	{	parseConfigXML(configXML = XML(e.target.data));	});
 		}
@@ -58,8 +58,6 @@
 		private static function dictsLoaded():void	{
 			onDictsLoaded();
 		}
-		
-			//	
 		
 		public static function lionize(lionid:String):*	{
 			return dictXMLs[currentDict].entry.(@id==lionid).toString();

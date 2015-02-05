@@ -6,18 +6,32 @@
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	import flash.xml.XMLNode;
 
 	public class Utils	{
 		
-			//	helpers
-		
-		public static function getClass(target:Object):Class	{
-			return Class(getDefinitionByName(getQualifiedClassName(target)));
-		}
-		
 			//	data
 		
-		public static function objectMerge(base:Object, mod:Object):Object	{			
+		public static function mergeXMLNode(base:XML, mod:XML):XML	{	//	merge attriutes and values of two xml nodes - mod will overwrite base, returns *new* xml
+			var result:XML = new XML(base);
+			var attributes:XMLList = base.attributes();	//	mod attributes
+			for(var i:String in attributes){	result.@[attributes[i].name()] = attributes[i].toString();	}
+			var modChildren:XMLList = mod.children();
+			var modChildrenLength:uint = modChildren.length();
+			
+			var modFirstChild:XML = modChildren[0];
+			
+			if(modFirstChild != undefined){	// if it's not empty
+				if(modFirstChild.nodeKind() == 'text'){	// no child nodes, just text
+					
+				}else{	//	otherwise just copy the contents
+					
+				}
+			}
+			return result;
+		}
+		
+		public static function objectMerge(base:Object, mod:Object):Object	{	//	mod properties will overwrite base, returns *new* object
 			var result:Object = new Object();
 			var prop:String = new String();
 			for(prop in base){	result[prop] = base[prop];	}
@@ -65,7 +79,7 @@
 			target.parent.setChildIndex(target,target.parent.numChildren-1);
 		}
 		
-		public static function rectify(target:*):Rectangle	{	//	returns a rectangle with coordinates of input object's bounding box
+		public static function rectify(target:*):Rectangle	{
 			return new Rectangle(
 				(target.hasOwnProperty('x')) ? target.x : 0,
 				(target.hasOwnProperty('y')) ? target.y : 0,

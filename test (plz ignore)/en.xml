@@ -1,4 +1,4 @@
 <dictionary>
 	<entry id="※Text1">The Bird Man</entry>
-	<entry id="※Node1" font="" size="" kerning="" leading="" color="">The Bird Man</entry>
+	<xmlNode lionid="※Node1" repeat="1"><![CDATA[English Text]]></xmlNode>
 </dictionary>

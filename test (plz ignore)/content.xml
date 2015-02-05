@@ -1,4 +1,4 @@
 ﻿<content>
 	<text1><![CDATA[※Text1]]></text1>
-	<xmlNode lionid="※Node1"></xmlNode>
+	<xmlNode lionid="※Node1" repeat="0"><![CDATA[]]></xmlNode>
 </content>
