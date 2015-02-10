@@ -4,6 +4,7 @@
 	import flash.events.Event;
 	import flash.utils.describeType;
 	import flash.events.Event;
+	import ml.Utils;
 
 	public class L10NE	{
 				

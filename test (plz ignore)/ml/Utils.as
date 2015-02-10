@@ -14,20 +14,10 @@
 		
 		public static function mergeXMLNode(base:XML, mod:XML):XML	{	//	merge attriutes and values of two xml nodes - mod will overwrite base, returns *new* xml
 			var result:XML = new XML(base);
-			var attributes:XMLList = base.attributes();	//	mod attributes
-			for(var i:String in attributes){	result.@[attributes[i].name()] = attributes[i].toString();	}
-			var modChildren:XMLList = mod.children();
-			var modChildrenLength:uint = modChildren.length();
-			
-			var modFirstChild:XML = modChildren[0];
-			
-			if(modFirstChild != undefined){	// if it's not empty
-				if(modFirstChild.nodeKind() == 'text'){	// no child nodes, just text
-					
-				}else{	//	otherwise just copy the contents
-					
-				}
-			}
+			var attributes:XMLList = mod.attributes();	//	mod attributes
+			for(var i:String in attributes){	result.@[attributes[i].name()] = attributes[i].toString();	}	//	overwrite node attributes
+			var modFirstChild:XML = mod.children()[0];
+			if(modFirstChild != XML(undefined)){	result.replace(0,modFirstChild);	}	//	overwrite node content
 			return result;
 		}
 		
@@ -39,7 +29,7 @@
 			return result;
 		}
 		
-		public static function vectorToArray(vector:*):Array	{	//	opposite:	Vector.<T>([a,b,c]);
+		public static function vectorToArray(vector:*):Array	{	//	opposite:	Vector.<Class>([a,b,c]);
 			var array:Array = new Array();
 			for (var i:int = 0; i < vector.length; ++i)	{	array[i] = vector[i];	}
 			return array;
