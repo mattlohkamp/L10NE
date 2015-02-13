@@ -8,54 +8,33 @@
 
 	public class L10NE	{
 				
-			//	model stuff
+			//	model stuff + accessors
+		
+		private static var config:L10NEConfig = new L10NEConfig();
+		public static function setConfig(_config:L10NEConfig):void	{	config = _config;	}
 
-		private static var dictURLs:Vector.<String>;
-		private static var dictXMLs:Array;
-		private static var $currentDict:String;
-		public static function get currentDict():String	{	return $currentDict;	}
+		private static var dictionaries:Array = new Array();
+		public static function getDictionaries():Array	{	return dictionaries;	}
 		
-			//	init + internals
+		private static var $currentDictID:String;
+		public static function get currentDictID():String	{	return $currentDictID;	}
+		public static function set currentDictID(_currentDictID:String):void	{	$currentDictID = _currentDictID;	}
 		
-		public static function init(_configURL:String, _onDictsLoaded:Function = null):void	{
-			onDictsLoaded = (_onDictsLoaded is Function) ? _onDictsLoaded : onDictsLoaded;
-			var configLoader:URLLoader = new URLLoader(new URLRequest(configURL = _configURL));
-			configLoader.addEventListener(Event.COMPLETE, function(e:Event):void	{	parseConfigXML(configXML = XML(e.target.data));	});
+		public static function getDictByID(dictID:String):L10NEDictionary	{	return dictionaries[dictID];	}
+		public static function getCurrentDict():L10NEDictionary	{	return getDictByID($currentDictID);	}
+		
+		public static function addDictionary(dictionary:L10NEDictionary):void	{
+			if(!$currentDictID){	$currentDictID = dictionary.id	}
+			dictionaries[dictionary.id] = dictionary;
 		}
 		
-		private static var loadQueue:Vector.<String>;
+			//	main function
 		
-		private static function parseConfigXML(_configXML:XML):void	{
-			var dictCount:uint = _configXML.dictionary.length();
-			dictURLs = new Vector.<String>(dictCount);
-			loadQueue = new Vector.<String>(dictCount);
-			dictXMLs = new Array();
-			var i:uint = new uint();
-			for each(var dictURL:String in _configXML.dictionary){
-				dictURLs[i] = dictURL;
-				loadQueue[i] = dictURL;
-				var xmlRequest:URLRequest = new URLRequest(dictURL);
-				var xmlURLLoader:URLLoader = new URLLoader(xmlRequest);
-				xmlURLLoader.addEventListener(Event.COMPLETE, function(xmlRequest:URLRequest, dictNode:XML):Function {
-					return function(e:Event):void {
-						var dictID:String = dictNode.@id.toString();
-						loadQueue.splice(loadQueue.indexOf(xmlRequest.url), 1);
-						dictXMLs[dictID] = XML(e.target.data);
-
-						var dictObj:L10NEDictionary = new L10NEDictionary(XML(e.target.data));
-						trace(dictObj);
-						
-						if(!!dictNode.@active.toString()){	$currentDict = dictID;	}
-						if(loadQueue.length == 0){	dictsLoaded();	}
-					}
-				}(xmlRequest, _configXML.dictionary[i]));
-				i++;
-			}
+		public static function lionize(target:*, dictID:String = null):*	{	//	takes String or XML, returns String or XML
+			return getValue(getDictionaryEntry(getLionID(target),dictID));
 		}
 		
-		private static function dictsLoaded():void	{
-			onDictsLoaded();
-		}
+			// internal dictionary interaction
 		
 		private static function getLionID(target:*):String	{	//	takes String or XML
 			if(target is String){	//	then it's easy
@@ -66,8 +45,11 @@
 			return null;
 		}
 		
-		private static function getDictionaryEntry(lionid:String):XML	{
-			return dictXMLs[currentDict].children().(@lionid==lionid)[0];
+		private static function getDictionaryEntry(lionid:String, dictID:String = null):XML	{
+			if(dictID){
+				return getDictByID(dictID).getValueByID(lionid)[0];
+			}
+			return getCurrentDict().getValueByID(lionid)[0];
 		}
 		
 		private static function getValue(dictEntry:XML):*	{	//	returns String or XML
@@ -82,10 +64,6 @@
 			}
 			
 			return null;
-		}
-		
-		public static function lionize(target:*):*	{	//	takes String or XML, returns String or XML
-			return getValue(getDictionaryEntry(getLionID(target)));
 		}
 	}
 }
