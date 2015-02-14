@@ -1,4 +1,0 @@
-<dictionary id="en" label="English" nativeName="English">
-	<string lionid="Text1">The Bird Man</string>
-	<node lionid="Node1" repeat="1"><![CDATA[English Text]]></node>
-</dictionary>

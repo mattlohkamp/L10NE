@@ -1,0 +1,1 @@
+note that the code examples are contained in Demo.as, and the Demo.swf will be blank when you run it - all the results of the code are displayed as 'trace' outputs, in the output console of the flash IDE, or in the flashlog file if you view the .swf through the debug flash player.

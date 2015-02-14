@@ -1,17 +1,7 @@
-﻿package ml.L10NE	{
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
-	import flash.events.Event;
-	import flash.utils.describeType;
-	import flash.events.Event;
-	import ml.Utils;
-
+﻿package ml.L10NE	{	//	https://github.com/mattlohkamp/L10NE	Matt Lohkamp	work@mattlohkamp.com	mattlohkamp.com/portfolio
 	public class L10NE	{
 				
 			//	model stuff + accessors
-		
-		private static var config:L10NEConfig = new L10NEConfig();
-		public static function setConfig(_config:L10NEConfig):void	{	config = _config;	}
 
 		private static var dictionaries:Array = new Array();
 		public static function getDictionaries():Array	{	return dictionaries;	}
@@ -20,7 +10,7 @@
 		public static function get currentDictID():String	{	return $currentDictID;	}
 		public static function set currentDictID(_currentDictID:String):void	{	$currentDictID = _currentDictID;	}
 		
-		public static function getDictByID(dictID:String):L10NEDictionary	{	return dictionaries[dictID];	}
+		public static function getDictByID(id:String):L10NEDictionary	{	return dictionaries[id];	}
 		public static function getCurrentDict():L10NEDictionary	{	return getDictByID($currentDictID);	}
 		
 		public static function addDictionary(dictionary:L10NEDictionary):void	{

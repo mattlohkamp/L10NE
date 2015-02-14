@@ -1,4 +1,0 @@
-﻿<config>
-	<dictionary active="true" id="en" label="English" nativeName="English"><![CDATA[en.xml]]></dictionary>
-	<dictionary id="de" englishName="German" localName="Deutsch"><![CDATA[de.xml]]></dictionary>
-</config>
