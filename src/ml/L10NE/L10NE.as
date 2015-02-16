@@ -1,4 +1,8 @@
 ﻿package ml.L10NE	{	//	https://github.com/mattlohkamp/L10NE	Matt Lohkamp	work@mattlohkamp.com	mattlohkamp.com/portfolio
+
+	import flash.events.EventDispatcher;
+	import flash.events.Event;
+	
 	public class L10NE	{
 				
 			//	model stuff + accessors
@@ -8,7 +12,10 @@
 		
 		private static var $currentDictID:String;
 		public static function get currentDictID():String	{	return $currentDictID;	}
-		public static function set currentDictID(_currentDictID:String):void	{	$currentDictID = _currentDictID;	}
+		public static function set currentDictID(_currentDictID:String):void	{
+			$currentDictID = _currentDictID;
+			dispatchEvent(new Event(Event.CHANGE));
+		}
 		
 		public static function getDictByID(id:String):L10NEDictionary	{	return dictionaries[id];	}
 		public static function getCurrentDict():L10NEDictionary	{	return getDictByID($currentDictID);	}
@@ -16,6 +23,7 @@
 		public static function addDictionary(dictionary:L10NEDictionary):void	{
 			if(!$currentDictID){	$currentDictID = dictionary.id	}
 			dictionaries[dictionary.id] = dictionary;
+			dispatchEvent(new Event(Event.ADDED));
 		}
 		
 			//	main function
@@ -55,5 +63,22 @@
 			
 			return null;
 		}
+		
+			//	event dispatch + listening
+		
+		private static var dispatcher:EventDispatcher = new EventDispatcher();
+		
+		public static function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void {
+            dispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
+        }
+        public static function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void {
+            dispatcher.removeEventListener(type, listener, useCapture);
+        }
+        public static function dispatchEvent(event:Event):Boolean {
+            return dispatcher.dispatchEvent(event);
+        }
+        public static function hasEventListener(type:String):Boolean {
+            return dispatcher.hasEventListener(type);
+        }
 	}
 }

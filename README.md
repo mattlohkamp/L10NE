@@ -2,15 +2,6 @@
 
 *LION Engine - the flash content externalization and localization system.*
 
-**note** - codebase is in extreme prerelease state, probably doesn't work at all! don't use it!
-
-##Dev Direction / timeline
-
-1.  completed example / demo
-2.  completed documentation
-3.  bug test / fix / stuff?
-4.  release!
-
 ## About the engine
 
 'L10N' is a [numeronym](http://en.wikipedia.org/wiki/Numeronym) used as industry shorthand for "[localization](http://en.wikipedia.org/wiki/Language_localisation)" - essentially the practice of defining equivalent content blocks for different geographic locations, generally broken up by language, but sometimes also distinct cultures. For instance, even in the same basic language, different regions might prefer different forms of a particular word - or might identify more with a different image as evoking a particular emotion. In a non-language example, in colourblind-friendly mode, green and red text might be styled slightly differently, requiring instructions to be reworded accordingly.
@@ -34,6 +25,14 @@ L10NE.addDictionary(new L10NEDictionary(<dictionary id="eng"><string lionid="tes
 ```
 
 Most likely you'll be loading the XML document using an `URLLoader`, casting the return value of `.data`  as `XML` and passing it into the `L10NEDictionary()` constructor to instanciate the new dictionary, then passing that into `L10NE.addDictionary`. For more concrete examples of this process, see the demo implementation files.
+
+#### Dictionary Added Event
+
+```as3
+L10NE.addEventListener(Event.ADDED, function(e:Event):void  {});
+```
+
+*todo: add something to see what that dict was*
 
 ### Dictionary Formatting
 
@@ -84,12 +83,6 @@ L10NE.getDictionaries():Array
 returns an array of `L10NEDictionary`s, indexed by the id attribute in the root node of each dictionary's source XML.
 
 ```as3
-L10NE.currentDictID:String  //  getter/setter
-```
-
-get the `id` of the current `L10NEDictionary`, or pick a new `L10NEDictionary` by its `id`.
-
-```as3
 L10NE.getDictByID(id:String):L10NEDictionary
 ```
 
@@ -101,10 +94,35 @@ L10NE.getCurrentDict():L10NEDictionary
 
 returns the `L10NEDictionary` that `L10NE.lionize()` is currently defaults to.
 
+```as3
+L10NE.currentDictID:String  //  getter/setter
+```
+
+get the `id` of the current `L10NEDictionary`, or pick a new `L10NEDictionary` by its `id`.
+
+#### Dictionary Changed Event
+
+```as3
+L10NE.addEventListener(Event.CHANGE, function(e:Event):void  {});
+```
+
 ---
 
 ## Example Usage
 
 For a more hands-on example, see the contents of '\demo'
 
-TODO: this
+```as3
+
+    var textField:TextField = new TextField();
+    addChild(textField);
+
+    L10NE.addEventListener(Event.CHANGE, function(e:Event):void	{
+        textField.text = l10ne.lionize('string1');  //  value will change when dictionary changes
+    });
+    
+    L10NE.addDictionary(new L10NEDictionary(<dictionary id="dict1"><string lionid="string1">Foo</string></dictionary>));   //  textField value will change now, because first dictionary added sets the default dictionary value, triggering Event.CHANGE
+    L10NE.addDictionary(new L10NEDictionary(<dictionary id="dict2"><string lionid="string1">Bar</string></dictionary>));
+    
+    L10NE.currentDictID = 'dict2';  //  textField value will change aga the second dictionary is selected.
+```
