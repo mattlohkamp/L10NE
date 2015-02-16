@@ -12,6 +12,11 @@
 		
 		public function Demo() {
 			
+				//	keep track of some events
+			
+			L10NE.addEventListener(Event.ADDED, function(e:Event):void	{	trace('dictionary added.');	});
+			L10NE.addEventListener(Event.CHANGE, function(e:Event):void	{	trace('dictionary set:', L10NE.currentDictID);	});
+			
 				//	localize a simple string:
 			
 			L10NE.addDictionary(new L10NEDictionary(<dictionary id="dict1">
