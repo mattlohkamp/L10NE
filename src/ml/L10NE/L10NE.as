@@ -66,6 +66,11 @@
 		
 			//	event dispatch + listening
 		
+		/*
+			Event list:		
+				Event.CHANGE		Fires when currentDictID accessor is SET, aka when $currentDictID is changed
+		*/
+		
 		private static var dispatcher:EventDispatcher = new EventDispatcher();
 		
 		public static function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void {
